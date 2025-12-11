@@ -75,7 +75,7 @@ export function SidebarFilters({
               <Slider
                 value={priceRange}
                 onValueChange={setPriceRange}
-                max={2500}
+                max={15000}
                 step={10}
                 className="w-full"
               />

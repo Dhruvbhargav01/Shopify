@@ -13,7 +13,7 @@ export default async function HomePage({
   const resolvedParams = await searchParams
 
   const minPrice = Number(resolvedParams.minPrice) || 0
-  const maxPrice = Number(resolvedParams.maxPrice) || 2500
+  const maxPrice = Number(resolvedParams.maxPrice) || 15000
   const categorySlug = resolvedParams.category as string | undefined
   const queryText =
     typeof resolvedParams.q === "string" ? resolvedParams.q.trim() : ""
@@ -34,7 +34,7 @@ export default async function HomePage({
     .limit(500)
 
   if (minPrice > 0) productsQuery = productsQuery.gte("price", minPrice)
-  if (maxPrice < 2500) productsQuery = productsQuery.lte("price", maxPrice)
+  if (maxPrice < 15000) productsQuery = productsQuery.lte("price", maxPrice)
 
   if (categorySlug) {
     const { data: category } = await supabase
