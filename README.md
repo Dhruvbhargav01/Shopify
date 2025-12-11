@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Shopify – E-Commerce Project
 
-## Getting Started
+A modern E-commerce application built with Next.js (App Router), TypeScript, Supabase, shadcn UI, and TailwindCSS.
+The project includes product listing with SSR filtering, cart persistence, authentication, and a complete checkout flow.
 
-First, run the development server:
+Live Demo: https://shopify-pi-rose.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Screenshots
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Home - <img width="1920" height="1080" alt="Screenshot 2025-12-11 213519" src="https://github.com/user-attachments/assets/b7b8e601-b290-4dec-84d2-5ac5faef0689" />
+2. Login/Signup - <img width="1920" height="1080" alt="Screenshot 2025-12-11 213601" src="https://github.com/user-attachments/assets/e4fd48a7-9363-4088-9d63-6d4f5a4d23f5" />
+3. My Cart - <img width="1920" height="1080" alt="Screenshot 2025-12-11 213544" src="https://github.com/user-attachments/assets/bc2ab0eb-6384-4d56-b2de-872c23d6a553" />
+4. My Orders - <img width="1920" height="1080" alt="Screenshot 2025-12-11 213636" src="https://github.com/user-attachments/assets/c26d33b8-c7f9-4117-b8d0-cd4e11dad7ac" />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Features
+Product Listing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Server-side product fetching
 
-## Learn More
+Price range and category filters
 
-To learn more about Next.js, take a look at the following resources:
+Scrollable horizontal categories
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Responsive product grid with images, name, price, and category
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Add to Cart button
 
-## Deploy on Vercel
+Filtering
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Filters applied using Supabase SQL queries
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Supports price + category combined filters
+
+Smooth SSR filtering optimized for large datasets (500+ products)
+
+Cart System
+
+Cart works without login using localStorage
+
+After login, local cart syncs to Supabase
+
+Cart persists across sessions
+
+On checkout, both Supabase and localStorage carts are cleared
+
+Authentication
+
+Supabase Auth (Email/Password or Google)
+
+Login required only for checkout and persistent cart
+
+Testing
+
+Database includes 500+ products
+
+Tested for filtering, guest cart, login sync, checkout process, and performance
+
+UI
+
+Built entirely with shadcn UI
+
+Clean, modern, and fully responsive layout
+
+Tech Stack
+
+Next.js (App Router + SSR)
+
+TypeScript
+
+Supabase (Database, Auth, Storage)
+
+shadcn UI
+
+TailwindCSS
+
+Setup
+
+Clone the project
+
+Install dependencies
+
+Create a .env.local file with Supabase keys
+
+Run npm run dev to start the server
