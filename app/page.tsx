@@ -1,22 +1,33 @@
-import { createSupabaseServerClient } from "@/lib/supabase-server"
-import Navbar from "@/components/layout/Navbar"
-import { SidebarFilters } from "@/components/shop/SidebarFilters"
-import { CategoryStrip } from "@/components/shop/CategoryStrip"
-import { ProductGrid } from "@/components/shop/ProductGrid"
+import { createSupabaseServerClient } from "@/lib/supabase-server";
+import Navbar from "@/components/layout/Navbar";
+import { SidebarFilters } from "@/components/shop/SidebarFilters";
+import { CategoryStrip } from "@/components/shop/CategoryStrip";
+import { ProductGrid } from "@/components/shop/ProductGrid";
+import Chatbot from "@/components/Chatbot";
 
 export default async function HomePage({
-  searchParams
+  searchParams,
 }: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const supabase = createSupabaseServerClient()
-  const resolvedParams = await searchParams
+  const supabase = createSupabaseServerClient();
+  const resolvedParams = await searchParams;
 
-  const minPrice = Number(resolvedParams.minPrice) || 0
-  const maxPrice = Number(resolvedParams.maxPrice) || 15000
-  const categorySlug = resolvedParams.category as string | undefined
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const userName =
+    (user?.user_metadata as any)?.full_name ||
+    (user?.user_metadata as any)?.name ||
+    user?.email?.split("@")[0] ||
+    "Guest";
+
+  const minPrice = Number(resolvedParams.minPrice) || 0;
+  const maxPrice = Number(resolvedParams.maxPrice) || 15000;
+  const categorySlug = resolvedParams.category as string | undefined;
   const queryText =
-    typeof resolvedParams.q === "string" ? resolvedParams.q.trim() : ""
+    typeof resolvedParams.q === "string" ? resolvedParams.q.trim() : "";
 
   let productsQuery = supabase
     .from("products")
@@ -31,28 +42,28 @@ export default async function HomePage({
     `
     )
     .order("created_at", { ascending: false })
-    .limit(500)
+    .limit(500);
 
-  if (minPrice > 0) productsQuery = productsQuery.gte("price", minPrice)
-  if (maxPrice < 15000) productsQuery = productsQuery.lte("price", maxPrice)
+  if (minPrice > 0) productsQuery = productsQuery.gte("price", minPrice);
+  if (maxPrice < 15000) productsQuery = productsQuery.lte("price", maxPrice);
 
   if (categorySlug) {
     const { data: category } = await supabase
       .from("categories")
       .select("id")
       .eq("slug", categorySlug)
-      .single()
-    if (category?.id) productsQuery = productsQuery.eq("category_id", category.id)
+      .single();
+    if (category?.id) productsQuery = productsQuery.eq("category_id", category.id);
   }
 
   if (queryText) {
-    productsQuery = productsQuery.ilike("name", `%${queryText}%`)
+    productsQuery = productsQuery.ilike("name", `%${queryText}%`);
   }
 
   const [{ data: categories }, { data: products }] = await Promise.all([
     supabase.from("categories").select("id, name, slug").order("name"),
-    productsQuery
-  ])
+    productsQuery,
+  ]);
 
   const shapedProducts =
     products?.map((p: any) => ({
@@ -61,8 +72,8 @@ export default async function HomePage({
       price: Number(p.price),
       image_url: p.image_url,
       category_name: p.categories?.name ?? "Uncategorized",
-      category_slug: p.categories?.slug ?? ""
-    })) ?? []
+      category_slug: p.categories?.slug ?? "",
+    })) ?? [];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -130,6 +141,7 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+      <Chatbot userName={userName} />
     </div>
   )
 }
