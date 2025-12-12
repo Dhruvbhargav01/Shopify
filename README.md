@@ -3,7 +3,7 @@ Shopify – E-Commerce Platform
 A modern, fully-featured E-commerce application built with Next.js App Router, TypeScript, Supabase, shadcn UI, and TailwindCSS.
 This project demonstrates SSR filtering, cart persistence, auth-based sync, and a complete checkout flow optimized for performance with 500+ products.It connect your personal Chat Assistant that suggest you and help you for searching your best products.
 
-🔗 Live Demo: https://shopify-pi-rose.vercel.app/
+🔗 Live Demo: [https://shopify-pi-rose.vercel.app/](https://shopify-e66dsl0fx-dhruv-bhargavs-projects.vercel.app/)
 
 📸 Screenshots
 
