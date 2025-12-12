@@ -19,3 +19,4 @@ export async function generateContent(history: any[], toolsOverride?: any[]) {
   const result = await model.generateContent(history);
   return result;
 }
+
